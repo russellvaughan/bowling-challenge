@@ -36,4 +36,10 @@ describe('Game', function() {
 	expect(game.finalScore).toEqual(19)
 	});
 
+	it('when a strike is bowled, a bonus is calulated equal to the next two rolls', function() {
+	game.bowl(10)
+	game.calculate()
+	expect(game.finalScore).toEqual(28)
+	});
+
 })
