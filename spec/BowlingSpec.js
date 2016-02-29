@@ -32,13 +32,14 @@ describe('Game', function() {
 
 	it("the game can calculate the score", function() { 
   spyOn(game.scoreCard,'reduce').and.returnValue([5,4,5,5])
-  game.calculate()
+  game._calculate()
 	expect(game.finalScore).toEqual(19)
 	});
 
 	it('when a strike is bowled, a bonus is calulated equal to the next two rolls', function() {
-	game.bowl(10)
-	game.calculate()
+	game.bowl(10);
+	game.bowl(5);
+	game.bowl(4);
 	expect(game.finalScore).toEqual(28)
 	});
 

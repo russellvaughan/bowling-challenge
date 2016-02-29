@@ -17,21 +17,14 @@ function Game(frame){
 		}			
 		else {
 		this._frame.secondBowl(pins)
+		this._calculateBonus()
 		this._addFrame()
 		}
 	};
 
-	Game.prototype.calculate = function() {
-		if (this._frame.isStrike() === true) {
-			 this.bonus += game.scorecard[+1]
-			 this._flatten();
-			this._sum();
-			this.finalScore += this.bonus
-		}
-		else {
+	Game.prototype._calculate = function() {
 		this._flatten();
 		this._sum();
-	}
 	};
 
 	Game.prototype._flatten = function() {
@@ -46,9 +39,24 @@ function Game(frame){
 	});
 	};
 
+
 	Game.prototype._addFrame = function(frame){
   this.scoreCard.push(this._frame.score);
+  this._calculate()
+  this.finalScore += this.bonus
   this._frame.resetFrame();
-}
-	
+  };
+
+	Game.prototype._calculateBonus = function() {
+		if(this.scoreCard.length > 0 ) {
+			if (this.scoreCard.slice(-1)[0].length === 1) {
+				this.bonus += this._frame.score.reduce(function(a, b) {
+	  return a + b;
+	   
+		});
+			}
+		}
+	};
+
+
 	
